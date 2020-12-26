@@ -1,5 +1,7 @@
-@value makerLightGrey from './common/color.css';
+* {
+  box-sizing: border-box;
+}
 
 body {
-  background-color: makerLightGrey;
+  margin: 0;
 }
