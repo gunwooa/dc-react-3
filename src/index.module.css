@@ -1,0 +1,5 @@
+@value makerLightGrey from './common/color.css';
+
+body {
+  background-color: makerLightGrey;
+}
