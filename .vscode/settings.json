@@ -3,5 +3,6 @@
         "titleBar.activeBackground": "#3F708D",
         "titleBar.inactiveBackground": "#3F708D"
     },
-    "explorer.compactFolders": false
+    "explorer.compactFolders": false,
+    "editor.tabSize": 2
 }
