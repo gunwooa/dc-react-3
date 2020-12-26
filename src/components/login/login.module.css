@@ -31,6 +31,9 @@
   border: 0.2rem solid makerGreen;
   outline: 0;
 }
+.button.github:disabled {
+  background-color: rgb(201, 197, 197);
+}
 
 .button:hover {
   background-color: makerLightPink;
