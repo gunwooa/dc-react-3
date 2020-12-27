@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import Button from "../button/button";
 import ImageFileInput from "../image_file_input/image_file_input";
-import styles from "./card_edit_form.module.css";
+import styles from "./card_add_form.module.css";
 
-const CardEditForm = ({ card, updateCard, deleteCard }) => {
+const CardAddForm = ({ onAdd }) => {
   const formRef = useRef();
   const nameRef = useRef();
   const companyRef = useRef();
@@ -12,90 +12,76 @@ const CardEditForm = ({ card, updateCard, deleteCard }) => {
   const emailRef = useRef();
   const messageRef = useRef();
 
-  const {
-    name,
-    company,
-    title,
-    email,
-    message,
-    theme,
-    fileName,
-    fileURL,
-  } = card;
-
-  const onSubmit = () => {
-    deleteCard(card);
-  };
-
-  const onChange = (event) => {
-    if (event.currentTarget === null) {
-      return;
-    }
+  const onSubmit = (event) => {
     event.preventDefault();
-    updateCard({
-      ...card,
-      [event.currentTarget.name]: event.currentTarget.value,
-    });
+    const card = {
+      id: Date.now(),
+      name: nameRef.current.value || ``,
+      company: companyRef.current.value || ``,
+      theme: themeRef.current.value || ``,
+      title: titleRef.current.value || ``,
+      email: emailRef.current.value || ``,
+      message: messageRef.current.value || ``,
+      fileName: ``,
+      fileURL: ``,
+    };
+
+    formRef.current.reset();
+    onAdd(card);
   };
 
   return (
-    <form className={styles.form}>
+    <form ref={formRef} className={styles.form}>
       <input
+        ref={nameRef}
         className={styles.input}
         type="text"
         name="name"
-        ref={nameRef}
-        value={name}
-        onChange={onChange}
+        placeholder="Name"
       />
       <input
+        ref={companyRef}
         className={styles.input}
         type="text"
         name="company"
-        ref={companyRef}
-        value={company}
-        onChange={onChange}
+        placeholder="Company"
       />
       <select
+        ref={themeRef}
         className={styles.select}
         name="theme"
-        ref={themeRef}
-        value={theme}
-        onChange={onChange}
+        placeholder="Theme"
       >
         <option value="light">Light</option>
         <option value="dark">Dart</option>
         <option value="colorful">Colorful</option>
       </select>
       <input
+        ref={titleRef}
         className={styles.input}
         type="text"
         name="title"
-        ref={titleRef}
-        value={title}
-        onChange={onChange}
+        placeholder="Title"
       />
       <input
+        ref={emailRef}
         className={styles.input}
         type="text"
         name="email"
-        ref={emailRef}
-        value={email}
-        onChange={onChange}
+        placeholder="Email"
       />
       <textarea
+        ref={messageRef}
         className={styles.textarea}
         name="message"
-        ref={messageRef}
-        value={message}
-        onChange={onChange}
+        placeholder="Message"
       ></textarea>
       <div className={styles.fileInput}>
         <ImageFileInput />
       </div>
-      <Button name="Delete" onClick={onSubmit} />
+      <Button name="Add" onClick={onSubmit} />
     </form>
   );
 };
 
-export default CardEditForm;
+export default CardAddForm;

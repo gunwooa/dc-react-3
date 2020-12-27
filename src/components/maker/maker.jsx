@@ -7,8 +7,8 @@ import Editor from "../editor/editor";
 import Preview from "../preview/preview";
 
 const Maker = ({ authService }) => {
-  const [cards, setCards] = useState([
-    {
+  const [cards, setCards] = useState({
+    1: {
       id: `1`,
       name: `Ellie`,
       company: `Samsung`,
@@ -19,7 +19,7 @@ const Maker = ({ authService }) => {
       fileName: `ellie`,
       fileURL: null,
     },
-    {
+    2: {
       id: `2`,
       name: `Gunwoo`,
       company: `Samsung`,
@@ -30,7 +30,7 @@ const Maker = ({ authService }) => {
       fileName: `ellie`,
       fileURL: `ellie.png`,
     },
-    {
+    3: {
       id: `3`,
       name: `Minsu`,
       company: `Samsung`,
@@ -41,7 +41,8 @@ const Maker = ({ authService }) => {
       fileName: `ellie`,
       fileURL: null,
     },
-  ]);
+  });
+
   const history = useHistory();
 
   const onLogout = () => {
@@ -54,13 +55,35 @@ const Maker = ({ authService }) => {
         history.push(`/`);
       }
     });
-  });
+  }, []);
+
+  const createOrUpdateCard = (card) => {
+    setCards((cards) => {
+      // 동기적으로 처리가 안 될 수도 있기 때문에, 콜백으로 처리해야 안전하다
+      const updated = { ...cards };
+      updated[card.id] = card;
+      return updated;
+    });
+  };
+
+  const deleteCard = (card) => {
+    setCards((cards) => {
+      const updated = { ...cards };
+      delete updated[card.id];
+      return updated;
+    });
+  };
 
   return (
     <section className={styles.maker}>
       <Header onLogout={onLogout} />
       <div className={styles.container}>
-        <Editor cards={cards} />
+        <Editor
+          cards={cards}
+          addCard={createOrUpdateCard}
+          updateCard={createOrUpdateCard}
+          deleteCard={deleteCard}
+        />
         <Preview cards={cards} />
       </div>
       <Footer />

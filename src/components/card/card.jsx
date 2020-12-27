@@ -30,7 +30,6 @@ const Card = ({ card }) => {
 };
 
 function getStyles(theme) {
-  console.log(theme);
   switch (theme) {
     case `dark`:
       return styles.dark;
