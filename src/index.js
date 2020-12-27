@@ -9,6 +9,7 @@ import ImageFileInput from "./components/image_file_input/image_file_input";
 const authService = new AuthService();
 const imageUploader = new ImageUploader();
 const FileInput = (props) => {
+  console.log(props);
   return <ImageFileInput {...props} imageUploader={imageUploader} />;
 };
 
