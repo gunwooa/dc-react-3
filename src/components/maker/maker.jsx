@@ -24,7 +24,7 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
       setCards(cards);
     });
     return () => stopSync; // 언마운트될떄 실행하고 싶은 로직 작성
-  }, [userId]); // 마운트될때, 사용자가 변경 되었을때 실행됨
+  }, [userId, cardRepository]); // 마운트될때, 사용자가 변경 되었을때 실행됨
 
   useEffect(() => {
     authService.onAuthChange((user) => {
@@ -34,7 +34,7 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
         history.push(`/`);
       }
     });
-  });
+  }, [authService, history]);
 
   const createOrUpdateCard = (card) => {
     setCards((cards) => {
